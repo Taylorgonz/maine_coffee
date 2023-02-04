@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "mainecoffee26ce73e0": {}
+      },
+      "api": {
+        "mainecoffee": {}
+      },
+      "storage": {
+        "imagestorage": {}
       }
     }
   }
