@@ -19,7 +19,7 @@ import {
 } from "./graphql/mutations";
 
 const App = ({ signOut }: any) => {
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState<any>([]);
 
   useEffect(() => {
     fetchNotes();
@@ -29,7 +29,7 @@ const App = ({ signOut }: any) => {
     const apiData: any = await API.graphql({ query: listNotes });
     const notesFromAPI = apiData.data.listNotes.items;
     await Promise.all(
-      notesFromAPI.map(async (note) => {
+      notesFromAPI.map(async (note: any) => {
         if (note.image) {
           const url = await Storage.get(note.name);
           note.image = url;
@@ -50,7 +50,7 @@ const App = ({ signOut }: any) => {
       image: image?.name,
 
     };
-    if (!!data.image) await Storage.put(data.name, image);
+    if (!!data.image && !!data.name) await Storage.put('image', image);
     await API.graphql({
       query: createNoteMutation,
       variables: { input: data },
@@ -103,7 +103,7 @@ const App = ({ signOut }: any) => {
       </View>
       <Heading level={2}>Current Notes</Heading>
       <View margin="3rem 0">
-        {notes.map((note: any) => (
+        {notes.map((note: {id: any, name: string, image: any, description: string}) => (
           <Flex
             key={note.id || note.name}
             direction="row"
